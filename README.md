@@ -61,7 +61,7 @@ sync_languages(file_language_pairs, header_name="messages", key="welcome", base_
 }
 ```
 
-#### Output (`de.json` the key and value were translated added by identifying "messages" header):
+#### Output (`de.json` the key and value were translated and added by identifying "messages" header):
 ```json
 {
   "messages": {
