@@ -52,7 +52,7 @@ sync_languages(file_language_pairs, header_name="messages", key="welcome", base_
 
 ### Example JSON Files during execution
 
-#### Output (`en.json` The base-value was inserted by identifying the "messages" header):
+#### Output (`en.json` The base key and value were inserted by identifying the "messages" header):
 ```json
 {
   "messages": {
