@@ -30,7 +30,7 @@ This Python script automates the process of syncing key-value pairs across multi
 
 ```python
 file_language_pairs = [
-    ('en.json', 'en'),  # English file as the base language
+    ('en.json', None),  # English file as the base language
     ('de.json', 'de'),  # German file
     ('fr.json', 'fr'),  # French file
 ]
@@ -50,9 +50,9 @@ sync_languages(file_language_pairs, header_name="messages", key="welcome", base_
 - Skips processing files that are missing or cannot be read.
 - Handles invalid JSON gracefully and prints descriptive error messages.
 
-### Example JSON File Before and After
+### Example JSON Files during execution
 
-#### Input (`en.json`):
+#### Output (`en.json` The base-value was inserted by identifying the "messages" header):
 ```json
 {
   "messages": {
@@ -61,7 +61,7 @@ sync_languages(file_language_pairs, header_name="messages", key="welcome", base_
 }
 ```
 
-#### Output (`de.json` the key and value were added by identifying "messages"):
+#### Output (`de.json` the key and value were translated added by identifying "messages" header):
 ```json
 {
   "messages": {
