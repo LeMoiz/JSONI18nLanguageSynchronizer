@@ -77,4 +77,4 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 Contributions are welcome! Feel free to open issues or submit pull requests.
 
 ## Author
-[Your Name](https://github.com/LeMoiz)
+[LeMoiz](https://github.com/LeMoiz)
