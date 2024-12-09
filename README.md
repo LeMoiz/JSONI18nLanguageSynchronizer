@@ -1,58 +1,50 @@
-# Python JSON Language File Synchronizer with Google Translate
 
-This Python script automates the process of syncing key-value pairs across multiple JSON language files. It translates values using Google Translate for languages other than the base language, ensuring consistent structure and updated translations.
+# Python JSON Language File Synchronizer
+
+A script to sync key-value pairs across JSON language files with automatic translation.
 
 ## Features
-- Identifies a base language file to extract a reference value for synchronization.
-- Updates or adds a specific key-value pair across multiple JSON files.
-- Automatically translates values to target languages using Google Translate.
-- Supports preserving the structure of JSON files.
-- Handles errors such as missing files, JSON decoding issues, and IO errors gracefully.
+- Syncs translations for specific keys across JSON files.
+- Requires the base language to be explicitly specified.
+- Uses Google Translate for non-base language files.
+- Maintains JSON structure and handles missing files gracefully.
+
+## Prerequisites
+- Python 3.x
+- Install dependencies: `pip install googletrans==4.0.0-rc1`
 
 ## Usage
+1. **Parameters**:
+   - `file_language_pairs`: List of tuples containing file names and language codes (base language in the first tuple).
+   - `header_name`: Top-level key in the JSON structure.
+   - `key`: Key to update or add.
+   - `base_value` (optional): Reference value; extracted from the base file if omitted.
 
-### Prerequisites
-- Python 3.x installed on your system.
-- `googletrans` library installed:
-  ```bash
-  pip install googletrans==4.0.0-rc1
-  ```
+2. **Example**:
+   ```python
+   file_language_pairs = [
+       ('en.json', 'en'),  # Base language file (English)
+       ('de.json', 'de'),  # German
+       ('fr.json', 'fr'),  # French
+   ]
 
-### Script Parameters
-1. **`file_language_pairs`**: A list of tuples where:
-   - The first element is the file name (e.g., `en.json`, `de.json`).
-   - The second element is the language code (e.g., `'en'`, `'de'`). Use `None` for the base language file.
-2. **`header_name`**: The top-level key in the JSON structure where updates are applied.
-3. **`key`**: The specific key to be updated or added within the `header_name`.
-4. **`base_value`** (optional): A reference value for translation. If not provided, the script extracts it from the base file.
+   sync_languages(file_language_pairs, header_name="messages", key="welcome", base_value="Welcome!")
+   ```
 
-### Example Usage
+## How It Works
+1. Extracts `base_value` from the first file (`file_language_pairs[0]`) or uses the provided one.
+2. Updates JSON files:
+   - Base file gets the `base_value`.
+   - Other files get translated values.
+3. Writes back updated content if changes are made.
 
-```python
-file_language_pairs = [
-    ('en.json', None),  # English file as the base language
-    ('de.json', 'de'),  # German file
-    ('fr.json', 'fr'),  # French file
-]
+## Error Handling
+- Skips invalid or missing files.
+- Handles JSON decoding and IO errors gracefully.
 
-sync_languages(file_language_pairs, header_name="messages", key="welcome", base_value="Welcome!")
-```
+### Example Outputs
 
-### How It Works
-1. The script identifies the base language file (`base_language`) from `file_language_pairs`.
-2. If `base_value` is not provided, it retrieves the value for the specified `key` from the base file.
-3. For each target language file:
-   - If the language differs from the base language, it translates the `base_value` into the target language using Google Translate.
-   - Updates the JSON structure with the translated or base value for the specified `key` under the `header_name`.
-4. Writes back the updated JSON content only if changes are detected.
-
-### Error Handling
-- Skips processing files that are missing or cannot be read.
-- Handles invalid JSON gracefully and prints descriptive error messages.
-
-### Example JSON Files during execution
-
-#### Output (`en.json` The base key and value were inserted by identifying the "messages" header):
+#### Base File (`en.json`):
 ```json
 {
   "messages": {
@@ -61,7 +53,7 @@ sync_languages(file_language_pairs, header_name="messages", key="welcome", base_
 }
 ```
 
-#### Output (`de.json` the key and value were translated and added by identifying "messages" header):
+#### Translated File (`de.json`):
 ```json
 {
   "messages": {
@@ -71,10 +63,4 @@ sync_languages(file_language_pairs, header_name="messages", key="welcome", base_
 ```
 
 ## License
-This project is licensed under the MIT License. See the `LICENSE` file for details.
-
-## Contributing
-Contributions are welcome! Feel free to open issues or submit pull requests.
-
-## Author
-[LeMoiz](https://github.com/LeMoiz)
+MIT License.
